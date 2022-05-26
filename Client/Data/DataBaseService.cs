@@ -5,7 +5,7 @@ namespace Client.Data
 {
     public class DataBaseService
     {
-        public event Action OnChange;
+        public event Action? OnChange;
       
         public List<Person> persons = new List<Person>() {
             { 
