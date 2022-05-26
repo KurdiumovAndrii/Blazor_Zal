@@ -1,0 +1,31 @@
+﻿@page "/counter"
+@using Client.Data
+
+@inject DataBaseService PersonService
+<h1>Person</h1>
+
+<p><b>Enter you Person</b></p>
+  <p><input @bind="FirstName" placeholder="FirstName" ></p>
+  <p><input @bind="SecondName" placeholder="SecondName"></p>
+  <p><input @bind="Age" placeholder="Age"></p>
+
+<button class="btn btn-primary" @onclick="SetPerson">Submit</button>
+
+@code {
+    
+
+    private string? FirstName{ get; set; }
+   
+    private string? SecondName{ get; set; }
+ 
+    private int Age{ get; set; }
+    
+    public void SetPerson()
+    {
+      PersonService.persons.Add(new Person() {
+          FirstName = FirstName,
+          SecondName = SecondName,
+          Age = Age
+        });
+    }
+}

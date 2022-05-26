@@ -1,0 +1,49 @@
+﻿@page "/fetchdata"
+
+@using Client.Data
+@inject DataBaseService PersonService
+
+<h1>Data</h1>
+
+<p>This component demonstrates when people added</p>
+
+@if (PersonService.persons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date Added</th>
+                <th>First Name</th>
+                <th>Second Name</th>
+                 <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in PersonService.persons)
+            {
+                <tr>
+                    <td>@person.Date.ToShortDateString()</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.SecondName</td>
+                    <td>@person.Age</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        PersonService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        PersonService.OnChange -= StateHasChanged;
+    }
+}
